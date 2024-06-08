@@ -24,6 +24,7 @@ public class Summary extends javax.swing.JFrame {
             ResultSet res = stat.executeQuery();
             if (res.next()) {
                 birthday = res.getString("Birthday");
+                int age = res.getInt("Age");
                 String height = res.getString("Height");
                 String weight = res.getString("Weight");
                 String gender = res.getString("Gender");
@@ -32,6 +33,7 @@ public class Summary extends javax.swing.JFrame {
                 String typeDoc = res.getString("Type of Doctor");
 
                 nameField.setText(firstName + " " + lastName);
+                ageField.setText(String.valueOf(age));
                 birthdayField.setText(birthday);
                 heightField.setText(height);
                 weightField.setText(weight);
@@ -76,11 +78,14 @@ public class Summary extends javax.swing.JFrame {
         genderField = new javax.swing.JTextField();
         contactField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        ageField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         scrollbar5.setBackground(new java.awt.Color(255, 255, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(1280, 840));
         setMinimumSize(new java.awt.Dimension(1280, 840));
         setPreferredSize(new java.awt.Dimension(1280, 840));
         setSize(new java.awt.Dimension(1280, 840));
@@ -97,7 +102,7 @@ public class Summary extends javax.swing.JFrame {
         patientinfoline5.setLayout(patientinfoline5Layout);
         patientinfoline5Layout.setHorizontalGroup(
             patientinfoline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGap(0, 796, Short.MAX_VALUE)
         );
         patientinfoline5Layout.setVerticalGroup(
             patientinfoline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,20 +208,26 @@ public class Summary extends javax.swing.JFrame {
         nameField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         nameField.setFocusable(false);
-        nameField.setPreferredSize(new java.awt.Dimension(30, 30));
+        nameField.setMaximumSize(new java.awt.Dimension(255, 36));
+        nameField.setMinimumSize(new java.awt.Dimension(255, 36));
+        nameField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         birthdayField.setEditable(false);
         birthdayField.setBackground(new java.awt.Color(255, 255, 255));
         birthdayField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         birthdayField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         birthdayField.setFocusable(false);
-        birthdayField.setPreferredSize(new java.awt.Dimension(30, 30));
+        birthdayField.setMaximumSize(new java.awt.Dimension(255, 36));
+        birthdayField.setMinimumSize(new java.awt.Dimension(255, 36));
+        birthdayField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         purposeText.setEditable(false);
         purposeText.setBackground(new java.awt.Color(255, 255, 255));
         purposeText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         purposeText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         purposeText.setFocusable(false);
+        purposeText.setMaximumSize(new java.awt.Dimension(614, 36));
+        purposeText.setMinimumSize(new java.awt.Dimension(614, 36));
         purposeText.setPreferredSize(new java.awt.Dimension(62, 20));
 
         weightField.setEditable(false);
@@ -224,20 +235,26 @@ public class Summary extends javax.swing.JFrame {
         weightField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         weightField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         weightField.setFocusable(false);
-        weightField.setPreferredSize(new java.awt.Dimension(30, 30));
+        weightField.setMaximumSize(new java.awt.Dimension(255, 36));
+        weightField.setMinimumSize(new java.awt.Dimension(255, 36));
+        weightField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         heightField.setEditable(false);
         heightField.setBackground(new java.awt.Color(255, 255, 255));
         heightField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         heightField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         heightField.setFocusable(false);
-        heightField.setPreferredSize(new java.awt.Dimension(30, 30));
+        heightField.setMaximumSize(new java.awt.Dimension(255, 36));
+        heightField.setMinimumSize(new java.awt.Dimension(255, 36));
+        heightField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         typeofdocText.setEditable(false);
         typeofdocText.setBackground(new java.awt.Color(255, 255, 255));
         typeofdocText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         typeofdocText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         typeofdocText.setFocusable(false);
+        typeofdocText.setMaximumSize(new java.awt.Dimension(614, 36));
+        typeofdocText.setMinimumSize(new java.awt.Dimension(614, 36));
         typeofdocText.setPreferredSize(new java.awt.Dimension(62, 20));
 
         dateAppointText.setEditable(false);
@@ -245,6 +262,8 @@ public class Summary extends javax.swing.JFrame {
         dateAppointText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         dateAppointText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         dateAppointText.setFocusable(false);
+        dateAppointText.setMaximumSize(new java.awt.Dimension(614, 36));
+        dateAppointText.setMinimumSize(new java.awt.Dimension(614, 36));
         dateAppointText.setPreferredSize(new java.awt.Dimension(62, 20));
 
         genderField.setEditable(false);
@@ -252,16 +271,31 @@ public class Summary extends javax.swing.JFrame {
         genderField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         genderField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         genderField.setFocusable(false);
-        genderField.setPreferredSize(new java.awt.Dimension(30, 30));
+        genderField.setMaximumSize(new java.awt.Dimension(255, 36));
+        genderField.setMinimumSize(new java.awt.Dimension(255, 36));
+        genderField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         contactField.setEditable(false);
         contactField.setBackground(new java.awt.Color(255, 255, 255));
         contactField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         contactField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         contactField.setFocusable(false);
+        contactField.setMaximumSize(new java.awt.Dimension(255, 36));
+        contactField.setMinimumSize(new java.awt.Dimension(255, 36));
+        contactField.setPreferredSize(new java.awt.Dimension(255, 36));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel1.setText("Contact No.");
+
+        ageField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        ageField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        ageField.setFocusable(false);
+        ageField.setMaximumSize(new java.awt.Dimension(255, 36));
+        ageField.setMinimumSize(new java.awt.Dimension(255, 36));
+        ageField.setPreferredSize(new java.awt.Dimension(255, 36));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel2.setText("Age");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,46 +306,50 @@ public class Summary extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(patientinfotxt5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(patientinfoline5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(patientinfoline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lastvisittxt5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(18, 18, 18)
+                                .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(birthdaytxt5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(gendertxt5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(nametxt5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(gendertxt5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(birthdaytxt5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(71, 71, 71)
+                                            .addComponent(nametxt5)
+                                            .addComponent(jLabel2))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(115, 115, 115)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(heighttxt5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(heighttxt5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(weighttxt5)
-                                                    .addComponent(jLabel1))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(contactField)
-                                                    .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addComponent(lastvisitline5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                            .addComponent(weighttxt5)
+                                            .addComponent(jLabel1))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(contactField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
+                        .addGap(157, 157, 157)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateofappointmenttxt5)
                             .addComponent(purposeofvisittxt5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -321,68 +359,80 @@ public class Summary extends javax.swing.JFrame {
                             .addComponent(purposeText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(typeofdocText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateAppointText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookButton)
-                .addGap(136, 136, 136))
+                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toppanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(patientinfotxt5)
-                        .addGap(39, 39, 39))
+                        .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(patientinfoline5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nametxt5)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(heighttxt5)
-                    .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(birthdaytxt5)
-                    .addComponent(weighttxt5)
-                    .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gendertxt5)
-                    .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                        .addGap(46, 46, 46)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(lastvisittxt5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(heighttxt5)
+                            .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(weighttxt5)
+                            .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nametxt5)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(birthdaytxt5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(gendertxt5)
+                            .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lastvisittxt5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)))
+                        .addGap(19, 19, 19)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(purposeofvisittxt5)
                     .addComponent(purposeText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(typeofdocText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typeofdoctortxt5))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateofappointmenttxt5)
                     .addComponent(dateAppointText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeofdocText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typeofdoctortxt5))
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -437,6 +487,7 @@ public class Summary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ageField;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField birthdayField;
     private javax.swing.JLabel birthdaytxt5;
@@ -449,6 +500,7 @@ public class Summary extends javax.swing.JFrame {
     private javax.swing.JTextField heightField;
     private javax.swing.JLabel heighttxt5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel lastvisitline5;
     private javax.swing.JLabel lastvisittxt5;
     private javax.swing.JTextField nameField;

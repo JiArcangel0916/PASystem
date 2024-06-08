@@ -63,6 +63,7 @@ public class CancelDialog extends javax.swing.JFrame {
         noButton.setText("No");
         noButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         noButton.setBorderPainted(false);
+        noButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         noButton.setFocusPainted(false);
         noButton.setMaximumSize(new java.awt.Dimension(56, 35));
         noButton.setMinimumSize(new java.awt.Dimension(56, 35));
@@ -78,6 +79,7 @@ public class CancelDialog extends javax.swing.JFrame {
         yesButton.setText("Yes");
         yesButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         yesButton.setBorderPainted(false);
+        yesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         yesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 yesButtonActionPerformed(evt);
