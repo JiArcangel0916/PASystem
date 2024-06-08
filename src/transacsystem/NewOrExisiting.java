@@ -161,7 +161,7 @@ public class NewOrExisiting extends javax.swing.JFrame {
         String lastName = "";
         String firstName = "";
         String birthday = "";
-        RegistrationForm Reg = new RegistrationForm(lastName, firstName);
+        RegistrationForm Reg = new RegistrationForm(lastName, firstName, birthday);
         Reg.setVisible(true);
         Reg.setLocationRelativeTo(null);
         this.dashboardFrame.dispose();

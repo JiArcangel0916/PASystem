@@ -6,12 +6,13 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched;
     
-    public RegistrationForm(String lastName, String firstName) {
+    public RegistrationForm(String lastName, String firstName, String birthday) {
         super("PAS | Registration Form");
         initComponents();
         this.setLocationRelativeTo(null);
         firstNameField.setText(firstName);
         lastNameField.setText(lastName);
+        birthDay.setText(birthday);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +50,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        doctorsFee = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 900));
@@ -136,8 +138,13 @@ public class RegistrationForm extends javax.swing.JFrame {
         appPurpose.setBorder(new javax.swing.border.MatteBorder(null));
 
         doctor.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        doctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Type", "Pedriatrician", "Family Doctor", "Primary Care Physician", "Internal Medicine" }));
+        doctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Type", "Pediatrician", "Family Doctor", "Primary Care Physician", "Internal Medicine" }));
         doctor.setBorder(new javax.swing.border.MatteBorder(null));
+        doctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorActionPerformed(evt);
+            }
+        });
 
         ConBut1.setBackground(new java.awt.Color(255, 175, 46));
         ConBut1.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
@@ -245,6 +252,13 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(2, 113, 121));
         jLabel9.setText("Appointment Details");
 
+        doctorsFee.setBackground(new java.awt.Color(2, 113, 121));
+        doctorsFee.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        doctorsFee.setForeground(new java.awt.Color(2, 113, 121));
+        doctorsFee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        doctorsFee.setToolTipText("");
+        doctorsFee.setFocusable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -288,10 +302,15 @@ public class RegistrationForm extends javax.swing.JFrame {
                                 .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(appPurpose, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(schedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(121, 121, 121)
-                        .addComponent(CantBut1)
-                        .addGap(18, 18, 18)
-                        .addComponent(ConBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(121, 121, 121)
+                                .addComponent(CantBut1)
+                                .addGap(18, 18, 18)
+                                .addComponent(ConBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(doctorsFee)))
                         .addGap(77, 77, 77))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -378,7 +397,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                     .addComponent(appPurpose, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(doctorsFee))
                     .addComponent(label18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,6 +455,33 @@ public class RegistrationForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ConBut1ActionPerformed
 
+    private void doctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorActionPerformed
+        String doc = (String) doctor.getSelectedItem();
+        int docFee = 0;
+        if (!doc.equals("Choose Type")){
+            switch (doc){
+                case "Pediatrician":
+                    docFee = 500;
+                    break;
+                   
+                case "Family Doctor":
+                    docFee = 300;
+                    break;
+                    
+                case "Primary Care Physician":
+                    docFee = 700;
+                    break;
+                
+                case "Internal Medicine":
+                    docFee = 300;
+                    break;
+            }
+            doctorsFee.setText("Doctors Fee: " + docFee + " Php");
+        }
+        else{
+            doctorsFee.setText("");
+        }
+    }//GEN-LAST:event_doctorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CantBut1;
@@ -442,6 +490,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.JTextField birthDay;
     private javax.swing.JTextField contactNo;
     private javax.swing.JComboBox<String> doctor;
+    private javax.swing.JLabel doctorsFee;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField height;

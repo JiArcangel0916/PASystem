@@ -5,7 +5,7 @@ import java.sql.*;
 public class Summary extends javax.swing.JFrame {
 
     private Connection con;
-    private String lastName, firstName, lastVisit;
+    private String lastName, firstName, lastVisit, birthday;
     
     public Summary(String lastName, String firstName, String lastVisit) {
                 super("PAS | Patient Summary");
@@ -23,7 +23,7 @@ public class Summary extends javax.swing.JFrame {
 
             ResultSet res = stat.executeQuery();
             if (res.next()) {
-                String birthday = res.getString("Birthday");
+                birthday = res.getString("Birthday");
                 String height = res.getString("Height");
                 String weight = res.getString("Weight");
                 String gender = res.getString("Gender");
@@ -157,7 +157,7 @@ public class Summary extends javax.swing.JFrame {
         lastvisitline5.setLayout(lastvisitline5Layout);
         lastvisitline5Layout.setHorizontalGroup(
             lastvisitline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 947, Short.MAX_VALUE)
         );
         lastvisitline5Layout.setVerticalGroup(
             lastvisitline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,7 +396,7 @@ public class Summary extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void bookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookButtonActionPerformed
-        RegistrationForm newBook = new RegistrationForm(lastName, firstName);
+        RegistrationForm newBook = new RegistrationForm(lastName, firstName, birthday);
         newBook.setVisible(true);
         newBook.setLocationRelativeTo(null);
         this.dispose();
