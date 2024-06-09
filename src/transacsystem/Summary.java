@@ -414,8 +414,7 @@ public class Summary extends javax.swing.JFrame {
                     .addComponent(lastvisittxt5)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)))
+                        .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(purposeofvisittxt5)
@@ -446,7 +445,7 @@ public class Summary extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void bookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookButtonActionPerformed
-        RegistrationForm newBook = new RegistrationForm(lastName, firstName, birthday);
+        RegistrationFormOldPatient newBook = new RegistrationFormOldPatient(lastName, firstName, birthday);
         newBook.setVisible(true);
         newBook.setLocationRelativeTo(null);
         this.dispose();

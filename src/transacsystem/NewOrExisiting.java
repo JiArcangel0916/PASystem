@@ -160,8 +160,7 @@ public class NewOrExisiting extends javax.swing.JFrame {
     private void newbutton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newbutton3ActionPerformed
         String lastName = "";
         String firstName = "";
-        String birthday = "";
-        RegistrationForm Reg = new RegistrationForm(lastName, firstName, birthday);
+        RegistrationFormNewPatient Reg = new RegistrationFormNewPatient(lastName, firstName);
         Reg.setVisible(true);
         Reg.setLocationRelativeTo(null);
         this.dashboardFrame.dispose();

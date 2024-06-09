@@ -24,6 +24,7 @@ public class PatientLog extends javax.swing.JFrame {
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setFont(new Font("Century Gothic", Font.BOLD, 18));
         refreshbutton4.doClick();
+        searchField.setText("Search Surname");
     }
 
     @SuppressWarnings("unchecked")
@@ -150,9 +151,13 @@ public class PatientLog extends javax.swing.JFrame {
         searchField.setBackground(new java.awt.Color(204, 204, 204));
         searchField.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         searchField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        searchField.setText("Search Surname");
         searchField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         searchField.setMinimumSize(new java.awt.Dimension(76, 4));
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchFieldFocusGained(evt);
+            }
+        });
         getContentPane().add(searchField);
         searchField.setBounds(930, 160, 230, 40);
 
@@ -317,6 +322,10 @@ public class PatientLog extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_refreshbutton4ActionPerformed
+
+    private void searchFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusGained
+        searchField.setText("");
+    }//GEN-LAST:event_searchFieldFocusGained
 
     /**
      * @param args the command line arguments
