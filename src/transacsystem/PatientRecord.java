@@ -1,50 +1,23 @@
 package transacsystem;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.*;
+import javax.swing.table.JTableHeader;
 
-public class Summary extends javax.swing.JFrame {
+public class PatientRecord extends javax.swing.JFrame {
 
     private Connection con;
     private String lastName, firstName, lastVisit, birthday;
-    
-    public Summary(String lastName, String firstName, String lastVisit) {
-                super("PAS | Patient Summary");
+
+    public PatientRecord(String lastName, String firstName, String lastVisit) {
+        super("PAS | Patient Record");
         createConnection();
         initComponents();
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.lastVisit = lastVisit;
-        String sql = "SELECT * FROM pasystem.patient WHERE `Last Name` LIKE ? AND `First name` LIKE ? AND `Schedule` LIKE ?";
-        try {
-            PreparedStatement stat = con.prepareStatement(sql);
-            stat.setString(1, "%" + lastName + "%");
-            stat.setString(2, "%" + firstName + "%");
-            stat.setString(3, "%" + lastVisit + "%");
-
-            ResultSet res = stat.executeQuery();
-            if (res.next()) {
-                birthday = res.getString("Birthday");
-                int age = res.getInt("Age");
-                String height = res.getString("Height");
-                String weight = res.getString("Weight");
-                String gender = res.getString("Gender");
-                String contact = res.getString("Phone Number");
-                String purpose = res.getString("Appointment Purpose");
-                String typeDoc = res.getString("Type of Doctor");
-
-                nameField.setText(firstName + " " + lastName);
-                ageField.setText(String.valueOf(age));
-                birthdayField.setText(birthday);
-                heightField.setText(height);
-                weightField.setText(weight);
-                genderField.setText(gender);
-                contactField.setText(contact);
-                purposeText.setText(purpose);
-                typeofdocText.setText(typeDoc);
-                dateAppointText.setText(lastVisit);
-            }
-        } catch (SQLException e) {
-        }
+        JTableHeader tableHeader = pastVisitsTable.getTableHeader();
+        tableHeader.setBackground(new Color(2, 113, 121));
+        tableHeader.setForeground(Color.WHITE);
+        tableHeader.setFont(new Font("Century Gothic", Font.BOLD, 18));
     }
 
     @SuppressWarnings("unchecked")
@@ -63,31 +36,25 @@ public class Summary extends javax.swing.JFrame {
         weighttxt5 = new javax.swing.JLabel();
         lastvisittxt5 = new javax.swing.JLabel();
         lastvisitline5 = new javax.swing.JPanel();
-        purposeofvisittxt5 = new javax.swing.JLabel();
-        typeofdoctortxt5 = new javax.swing.JLabel();
-        dateofappointmenttxt5 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         bookButton = new javax.swing.JButton();
         nameField = new javax.swing.JTextField();
         birthdayField = new javax.swing.JTextField();
-        purposeText = new javax.swing.JTextField();
         weightField = new javax.swing.JTextField();
         heightField = new javax.swing.JTextField();
-        typeofdocText = new javax.swing.JTextField();
-        dateAppointText = new javax.swing.JTextField();
         genderField = new javax.swing.JTextField();
         contactField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         ageField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pastVisitsTable = new javax.swing.JTable();
 
         scrollbar5.setBackground(new java.awt.Color(255, 255, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(1280, 840));
         setMinimumSize(new java.awt.Dimension(1280, 840));
-        setPreferredSize(new java.awt.Dimension(1280, 840));
         setSize(new java.awt.Dimension(1280, 840));
 
         patientinfotxt5.setBackground(new java.awt.Color(255, 255, 255));
@@ -127,23 +94,23 @@ public class Summary extends javax.swing.JFrame {
 
         patientsummarytxt5.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         patientsummarytxt5.setForeground(new java.awt.Color(255, 255, 255));
-        patientsummarytxt5.setText("Patient Summary");
+        patientsummarytxt5.setText("Patient Record");
 
         javax.swing.GroupLayout toppanel5Layout = new javax.swing.GroupLayout(toppanel5);
         toppanel5.setLayout(toppanel5Layout);
         toppanel5Layout.setHorizontalGroup(
             toppanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, toppanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(toppanel5Layout.createSequentialGroup()
+                .addGap(495, 495, 495)
                 .addComponent(patientsummarytxt5)
-                .addGap(489, 489, 489))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         toppanel5Layout.setVerticalGroup(
             toppanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toppanel5Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addComponent(patientsummarytxt5)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         weighttxt5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -151,7 +118,7 @@ public class Summary extends javax.swing.JFrame {
 
         lastvisittxt5.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
         lastvisittxt5.setForeground(new java.awt.Color(2, 113, 121));
-        lastvisittxt5.setText("Last Visit");
+        lastvisittxt5.setText("Visits");
 
         lastvisitline5.setBackground(new java.awt.Color(2, 113, 121));
         lastvisitline5.setMaximumSize(new java.awt.Dimension(947, 2));
@@ -162,21 +129,12 @@ public class Summary extends javax.swing.JFrame {
         lastvisitline5.setLayout(lastvisitline5Layout);
         lastvisitline5Layout.setHorizontalGroup(
             lastvisitline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 947, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         lastvisitline5Layout.setVerticalGroup(
             lastvisitline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
-
-        purposeofvisittxt5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        purposeofvisittxt5.setText("Purpose of Visit");
-
-        typeofdoctortxt5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        typeofdoctortxt5.setText("Type of Doctor");
-
-        dateofappointmenttxt5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        dateofappointmenttxt5.setText("Date of Appointment");
 
         backButton.setBackground(new java.awt.Color(204, 204, 204));
         backButton.setFont(new java.awt.Font("Century Gothic", 0, 20)); // NOI18N
@@ -221,15 +179,6 @@ public class Summary extends javax.swing.JFrame {
         birthdayField.setMinimumSize(new java.awt.Dimension(255, 36));
         birthdayField.setPreferredSize(new java.awt.Dimension(255, 36));
 
-        purposeText.setEditable(false);
-        purposeText.setBackground(new java.awt.Color(255, 255, 255));
-        purposeText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        purposeText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        purposeText.setFocusable(false);
-        purposeText.setMaximumSize(new java.awt.Dimension(614, 36));
-        purposeText.setMinimumSize(new java.awt.Dimension(614, 36));
-        purposeText.setPreferredSize(new java.awt.Dimension(62, 20));
-
         weightField.setEditable(false);
         weightField.setBackground(new java.awt.Color(255, 255, 255));
         weightField.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -247,24 +196,6 @@ public class Summary extends javax.swing.JFrame {
         heightField.setMaximumSize(new java.awt.Dimension(255, 36));
         heightField.setMinimumSize(new java.awt.Dimension(255, 36));
         heightField.setPreferredSize(new java.awt.Dimension(255, 36));
-
-        typeofdocText.setEditable(false);
-        typeofdocText.setBackground(new java.awt.Color(255, 255, 255));
-        typeofdocText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        typeofdocText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        typeofdocText.setFocusable(false);
-        typeofdocText.setMaximumSize(new java.awt.Dimension(614, 36));
-        typeofdocText.setMinimumSize(new java.awt.Dimension(614, 36));
-        typeofdocText.setPreferredSize(new java.awt.Dimension(62, 20));
-
-        dateAppointText.setEditable(false);
-        dateAppointText.setBackground(new java.awt.Color(255, 255, 255));
-        dateAppointText.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        dateAppointText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        dateAppointText.setFocusable(false);
-        dateAppointText.setMaximumSize(new java.awt.Dimension(614, 36));
-        dateAppointText.setMinimumSize(new java.awt.Dimension(614, 36));
-        dateAppointText.setPreferredSize(new java.awt.Dimension(62, 20));
 
         genderField.setEditable(false);
         genderField.setBackground(new java.awt.Color(255, 255, 255));
@@ -297,75 +228,89 @@ public class Summary extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setText("Age");
 
+        pastVisitsTable.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        pastVisitsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Purpose of Appointment", "Type of Doctor", "Schedule"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        pastVisitsTable.setGridColor(new java.awt.Color(2, 113, 121));
+        pastVisitsTable.setSelectionForeground(new java.awt.Color(2, 113, 121));
+        pastVisitsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        pastVisitsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        pastVisitsTable.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(pastVisitsTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(toppanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(patientinfotxt5)
-                                .addGap(18, 18, 18)
-                                .addComponent(patientinfoline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lastvisittxt5)
-                                .addGap(18, 18, 18)
-                                .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(birthdaytxt5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(gendertxt5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(nametxt5)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(115, 115, 115)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(heighttxt5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(weighttxt5)
-                                            .addComponent(jLabel1))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(contactField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateofappointmenttxt5)
-                            .addComponent(purposeofvisittxt5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(typeofdoctortxt5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(purposeText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typeofdocText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateAppointText, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(bookButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(patientinfotxt5)
+                            .addGap(18, 18, 18)
+                            .addComponent(patientinfoline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(88, 88, 88)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(birthdaytxt5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(birthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(gendertxt5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(nametxt5)
+                                        .addComponent(jLabel2))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(115, 115, 115)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(heighttxt5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(weighttxt5)
+                                        .addComponent(jLabel1))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(contactField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lastvisittxt5)
+                            .addGap(18, 18, 18)
+                            .addComponent(lastvisitline5, javax.swing.GroupLayout.DEFAULT_SIZE, 997, Short.MAX_VALUE))))
                 .addContainerGap(103, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bookButton)
-                .addGap(116, 116, 116))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 997, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(135, 135, 135))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,36 +354,26 @@ public class Summary extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(gendertxt5)
                             .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lastvisittxt5)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lastvisitline5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(purposeofvisittxt5)
-                    .addComponent(purposeText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateofappointmenttxt5)
-                    .addComponent(dateAppointText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(typeofdocText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typeofdoctortxt5))
-                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        AppointmentLog PatientLogFrame = new AppointmentLog();
+        PatientsLog PatientLogFrame = new PatientsLog();
         PatientLogFrame.setVisible(true);
         PatientLogFrame.setLocationRelativeTo(null);
         this.dispose();
@@ -451,9 +386,6 @@ public class Summary extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_bookButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -467,14 +399,15 @@ public class Summary extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Summary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Summary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Summary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Summary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -492,27 +425,23 @@ public class Summary extends javax.swing.JFrame {
     private javax.swing.JLabel birthdaytxt5;
     private javax.swing.JButton bookButton;
     private javax.swing.JTextField contactField;
-    private javax.swing.JTextField dateAppointText;
-    private javax.swing.JLabel dateofappointmenttxt5;
     private javax.swing.JTextField genderField;
     private javax.swing.JLabel gendertxt5;
     private javax.swing.JTextField heightField;
     private javax.swing.JLabel heighttxt5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel lastvisitline5;
     private javax.swing.JLabel lastvisittxt5;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nametxt5;
+    private javax.swing.JTable pastVisitsTable;
     private javax.swing.JPanel patientinfoline5;
     private javax.swing.JLabel patientinfotxt5;
     private javax.swing.JLabel patientsummarytxt5;
-    private javax.swing.JTextField purposeText;
-    private javax.swing.JLabel purposeofvisittxt5;
     private javax.swing.JScrollBar scrollbar5;
     private javax.swing.JPanel toppanel5;
-    private javax.swing.JTextField typeofdocText;
-    private javax.swing.JLabel typeofdoctortxt5;
     private javax.swing.JTextField weightField;
     private javax.swing.JLabel weighttxt5;
     // End of variables declaration//GEN-END:variables

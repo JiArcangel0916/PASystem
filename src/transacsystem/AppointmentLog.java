@@ -9,17 +9,17 @@ import java.sql.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.SwingConstants;
 
-public class PatientLog extends javax.swing.JFrame {
+public class AppointmentLog extends javax.swing.JFrame {
 
     private Connection con;
     private DefaultTableCellRenderer center = new DefaultTableCellRenderer();
 
-    public PatientLog() {
-        super("PAS | Patient Log");
+    public AppointmentLog() {
+        super("PAS | Appointments Log");
         createConnection();
         initComponents();
 
-        JTableHeader tableHeader = PatientsTable.getTableHeader();
+        JTableHeader tableHeader = AppointmentsTable.getTableHeader();
         tableHeader.setBackground(new Color(2, 113, 121));
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setFont(new Font("Century Gothic", Font.BOLD, 18));
@@ -40,7 +40,7 @@ public class PatientLog extends javax.swing.JFrame {
         refreshbutton4 = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        PatientsTable = new javax.swing.JTable();
+        AppointmentsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 250, 250));
@@ -54,23 +54,23 @@ public class PatientLog extends javax.swing.JFrame {
 
         patientlogtxt4.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         patientlogtxt4.setForeground(new java.awt.Color(255, 255, 255));
-        patientlogtxt4.setText("Patient Log");
+        patientlogtxt4.setText("Appointment Log");
 
         javax.swing.GroupLayout toppanel4Layout = new javax.swing.GroupLayout(toppanel4);
         toppanel4.setLayout(toppanel4Layout);
         toppanel4Layout.setHorizontalGroup(
             toppanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toppanel4Layout.createSequentialGroup()
-                .addGap(498, 498, 498)
+                .addGap(482, 482, 482)
                 .addComponent(patientlogtxt4)
-                .addContainerGap(589, Short.MAX_VALUE))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
         toppanel4Layout.setVerticalGroup(
             toppanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toppanel4Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(22, 22, 22)
                 .addComponent(patientlogtxt4)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(toppanel4);
@@ -121,7 +121,7 @@ public class PatientLog extends javax.swing.JFrame {
         searchButton.setBounds(1160, 160, 50, 40);
 
         trashbutton4.setBackground(new java.awt.Color(255, 175, 46));
-        trashbutton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Trash.JPG"))); // NOI18N
+        trashbutton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/TrashButtonTrashFINAL.png"))); // NOI18N
         trashbutton4.setBorder(null);
         trashbutton4.setBorderPainted(false);
         trashbutton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -135,7 +135,7 @@ public class PatientLog extends javax.swing.JFrame {
         trashbutton4.setBounds(680, 720, 60, 50);
 
         refreshbutton4.setBackground(new java.awt.Color(255, 175, 46));
-        refreshbutton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Refresh.JPG"))); // NOI18N
+        refreshbutton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/RefreshIconWhiteFINAL.png"))); // NOI18N
         refreshbutton4.setBorder(null);
         refreshbutton4.setBorderPainted(false);
         refreshbutton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -161,8 +161,8 @@ public class PatientLog extends javax.swing.JFrame {
         getContentPane().add(searchField);
         searchField.setBounds(930, 160, 230, 40);
 
-        PatientsTable.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        PatientsTable.setModel(new javax.swing.table.DefaultTableModel(
+        AppointmentsTable.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        AppointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -185,14 +185,14 @@ public class PatientLog extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        PatientsTable.setGridColor(new java.awt.Color(2, 113, 121));
-        PatientsTable.setRowHeight(40);
-        PatientsTable.setSelectionForeground(new java.awt.Color(2, 113, 121));
-        PatientsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        PatientsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        PatientsTable.setShowGrid(true);
-        PatientsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(PatientsTable);
+        AppointmentsTable.setGridColor(new java.awt.Color(2, 113, 121));
+        AppointmentsTable.setRowHeight(40);
+        AppointmentsTable.setSelectionForeground(new java.awt.Color(2, 113, 121));
+        AppointmentsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        AppointmentsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        AppointmentsTable.setShowGrid(true);
+        AppointmentsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(AppointmentsTable);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(260, 240, 730, 440);
@@ -208,11 +208,11 @@ public class PatientLog extends javax.swing.JFrame {
     }//GEN-LAST:event_backbutton4ActionPerformed
 
     private void selectbutton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectbutton4ActionPerformed
-        int row = PatientsTable.getSelectedRow();
+        int row = AppointmentsTable.getSelectedRow();
         if (row >= 0) {
-            String lastName = PatientsTable.getValueAt(row, 0).toString();
-            String firstName = PatientsTable.getValueAt(row, 1).toString();
-            String lastVisit = PatientsTable.getValueAt(row, 2).toString();
+            String lastName = AppointmentsTable.getValueAt(row, 0).toString();
+            String firstName = AppointmentsTable.getValueAt(row, 1).toString();
+            String lastVisit = AppointmentsTable.getValueAt(row, 2).toString();
 
             Summary summary = new Summary(lastName, firstName, lastVisit);
             summary.setVisible(true);
@@ -248,11 +248,11 @@ public class PatientLog extends javax.swing.JFrame {
                 resModel.addRow(new Object[]{lastName, firstName, lastVisit});
             }
 
-            PatientsTable.setModel(resModel);
+            AppointmentsTable.setModel(resModel);
             center.setHorizontalAlignment(SwingConstants.CENTER);
 
-            for (int i = 0; i < PatientsTable.getColumnCount(); i++) {
-                PatientsTable.getColumnModel().getColumn(i).setCellRenderer(center);
+            for (int i = 0; i < AppointmentsTable.getColumnCount(); i++) {
+                AppointmentsTable.getColumnModel().getColumn(i).setCellRenderer(center);
             }
 
         } catch (SQLException e) {
@@ -261,16 +261,16 @@ public class PatientLog extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void trashbutton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trashbutton4ActionPerformed
-        int row = PatientsTable.getSelectedRow();
+        int row = AppointmentsTable.getSelectedRow();
         int resp;
         //If may naselect na row ang user
         if (row >= 0) {
-            resp = JOptionPane.showConfirmDialog(null, "Delete selected patient?", "Deleting a patient", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            resp = JOptionPane.showConfirmDialog(null, "Delete scheduled appointment?", "Deleting Appointment", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (resp == 0) {
                 try {
-                    String lastName = PatientsTable.getValueAt(row, 0).toString();
-                    String firstName = PatientsTable.getValueAt(row, 1).toString();
-                    String lastVisit = PatientsTable.getValueAt(row, 2).toString();
+                    String lastName = AppointmentsTable.getValueAt(row, 0).toString();
+                    String firstName = AppointmentsTable.getValueAt(row, 1).toString();
+                    String lastVisit = AppointmentsTable.getValueAt(row, 2).toString();
                     String sql = "DELETE FROM pasystem.patient WHERE `Last Name` = ? AND `First Name` = ? AND `Schedule` = ?";
 
                     //Pinalitan yung mga question mark sa String sql
@@ -310,13 +310,13 @@ public class PatientLog extends javax.swing.JFrame {
             }
             
             //Setting the model of the table to the created table
-            PatientsTable.setModel(tbMod);
+            AppointmentsTable.setModel(tbMod);
             
             //Center the cells of each column
             center.setHorizontalAlignment(SwingConstants.CENTER);
 
-            for (int i = 0; i < PatientsTable.getColumnCount(); i++) {
-                PatientsTable.getColumnModel().getColumn(i).setCellRenderer(center);
+            for (int i = 0; i < AppointmentsTable.getColumnCount(); i++) {
+                AppointmentsTable.getColumnModel().getColumn(i).setCellRenderer(center);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -344,25 +344,26 @@ public class PatientLog extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PatientLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PatientLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PatientLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PatientLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PatientLog().setVisible(true);
+                new AppointmentLog().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable PatientsTable;
+    private javax.swing.JTable AppointmentsTable;
     private javax.swing.JButton backbutton4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel patientlogtxt4;
