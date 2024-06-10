@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 public class AppointmentSummary extends javax.swing.JFrame {
 
     private final JFrame RegForm;
-    private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched;
+    private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched, timeDay;
     private int age;
     private Connection con;
 
-    public AppointmentSummary(JFrame RegForm, String firstName, String lastName, int age, String birthday, String gen, String phone, String hei, String wei, String purpose, String type, String sched) {
+    public AppointmentSummary(JFrame RegForm, String firstName, String lastName, int age, String birthday, String gen, String phone, String hei, String wei, String purpose, String type, String sched, String timeDay) {
         super("PAS | Appointment Summary");
         initComponents();
         createConnection();
@@ -28,6 +28,7 @@ public class AppointmentSummary extends javax.swing.JFrame {
         this.purpose = purpose;
         this.type = type;
         this.sched = sched;
+        this.timeDay = timeDay;
         fillDetails();
     }
 
@@ -453,7 +454,6 @@ public class AppointmentSummary extends javax.swing.JFrame {
         try {
             String sql = "INSERT INTO pasystem.patient (`First Name`, `Last Name`, `Age`, `Birthday`, `Height`, `Weight`, `Phone Number`, `Gender`, `Appointment Purpose`, `Type of Doctor`, `Schedule`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stat = con.prepareStatement(sql);
-            
             stat.setString(1, firstName);
             stat.setString(2, lastName);
             stat.setInt(3, age);
@@ -464,7 +464,7 @@ public class AppointmentSummary extends javax.swing.JFrame {
             stat.setString(8, gen);
             stat.setString(9, purpose);
             stat.setString(10, type);
-            stat.setString(11, sched);
+            stat.setString(11, sched + " " + timeDay);
             stat.execute();
             
             stat.close();
@@ -482,7 +482,7 @@ public class AppointmentSummary extends javax.swing.JFrame {
         weightField.setText(wei);
         contactField.setText(phone);
         purposeField.setText(purpose);
-        dateField.setText(sched);
+        dateField.setText(sched + " " + timeDay);
         typeField.setText(type);
     }
 

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class RegistrationFormNewPatient extends javax.swing.JFrame {
 
-    private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched;
+    private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched, timeDay;
     private int age;
     private String format = "MM/DD/YY";
     
@@ -15,6 +15,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         firstNameField.setText(firstName);
         lastNameField.setText(lastName);
         doctor.setEnabled(false);
+        timeAndDay.setEnabled(false);
         schedule.setText(format);
         birthDay.setText(format);
     }
@@ -68,6 +69,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         purposeEmpty = new javax.swing.JLabel();
         typeEmpty = new javax.swing.JLabel();
         schedEmpty = new javax.swing.JLabel();
+        timeAndDay = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 900));
@@ -388,6 +390,10 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         schedEmpty.setMinimumSize(new java.awt.Dimension(100, 19));
         schedEmpty.setPreferredSize(new java.awt.Dimension(100, 19));
 
+        timeAndDay.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        timeAndDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Time" }));
+        timeAndDay.setBorder(new javax.swing.border.MatteBorder(null));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -477,7 +483,9 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(27, 27, 27)
-                                                .addComponent(schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(timeAndDay, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(schedEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -585,7 +593,8 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(schedEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(schedEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeAndDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CantBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -621,7 +630,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         String emDoc = "Please select a doctor";
         String emSched = "Please inidicate schedule for appointment";
         String emPhone = "Please enter your phone number";
-        boolean FN = false, LN = false, AGE = false, BD = false, GEN = false, HEI = false, WEI = false, PURP = false, TYPE = false, SCH = false, PH = false;
+        boolean FN = false, LN = false, AGE = false, BD = false, GEN = false, HEI = false, WEI = false, PURP = false, TYPE = false, SCH = false, PH = false, TD = false;
         
         firstName = firstNameField.getText();
         lastName = lastNameField.getText();
@@ -634,6 +643,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         purpose = appPurpose.getSelectedItem().toString();
         type = doctor.getSelectedItem().toString();
         sched = schedule.getText();
+        timeDay = timeAndDay.getSelectedItem().toString();
         
         if (firstName.equals("")) FNameEmpty.setText(emInfo);
         else {FN = true; FNameEmpty.setText("");}
@@ -667,10 +677,13 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         if (phone.equals("")) phoneEmpty.setText(emPhone);
         else {PH = true; phoneEmpty.setText("");}
         
+        if (timeDay.equals("Choose Time") || timeDay.equals("Available Hours and Days:")) schedEmpty.setText(emSched);
+        else {TD = true; schedEmpty.setText("");}
+        
         age = Integer.parseInt(ageTemp);
         
-        if ((phone.length() == 11) && FN && LN && AGE && BD && GEN && HEI && WEI && PURP && TYPE && SCH) {
-            AppointmentSummary summary = new AppointmentSummary(this, firstName, lastName, age, birthday, gen, phone, hei,wei, purpose, type, sched);
+        if ((phone.length() == 11) && FN && LN && AGE && BD && GEN && HEI && WEI && PURP && TYPE && SCH && TD) {
+            AppointmentSummary summary = new AppointmentSummary(this, firstName, lastName, age, birthday, gen, phone, hei,wei, purpose, type, sched, timeDay);
             summary.setVisible(true);
             summary.setLocationRelativeTo(null);
         } else if (phone.length() != 11){
@@ -682,21 +695,78 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         String doc = (String) doctor.getSelectedItem();
         int docFee = 0;
         if (doc != null && !doc.equals("Choose Type of Doctor")){
+            timeAndDay.setEnabled(true);
             switch (doc){
                 case "Pediatrician":
                     docFee = 500;
+                    timeAndDay.removeAllItems();
+                    timeAndDay.addItem("Available Hours and Days:");
+                    timeAndDay.addItem("8-9 AM MON");
+                    timeAndDay.addItem("10-11 AM MON");
+                    timeAndDay.addItem("11-12 PM MON");
+                    timeAndDay.addItem("1-2 PM MON");
+                    timeAndDay.addItem("8-9 AM WED");
+                    timeAndDay.addItem("10-11 AM WED");
+                    timeAndDay.addItem("11-12 PM WED");
+                    timeAndDay.addItem("1-2 PM WED");
+                    timeAndDay.addItem("8-9 AM FRI");
+                    timeAndDay.addItem("10-11 AM FRI");
+                    timeAndDay.addItem("11-12 PM FRI");
+                    timeAndDay.addItem("1-2 PM FRI");
                     break;
                    
                 case "Family Doctor":
                     docFee = 300;
+                    timeAndDay.removeAllItems();
+                    timeAndDay.addItem("Available Hours and Days:");
+                    timeAndDay.addItem("8-9 AM TUE");
+                    timeAndDay.addItem("10-11 AM TUE");
+                    timeAndDay.addItem("1-2 PM TUE");
+                    timeAndDay.addItem("2-3 PM TUE");
+                    timeAndDay.addItem("8-9 AM THU");
+                    timeAndDay.addItem("10-11 AM THU");
+                    timeAndDay.addItem("1-2 PM THU");
+                    timeAndDay.addItem("2-3 PM THU");
+                    timeAndDay.addItem("8-9 AM FRI");
+                    timeAndDay.addItem("10-11 AM FRI");
+                    timeAndDay.addItem("1-2 PM FRI");
+                    timeAndDay.addItem("2-3 PM FRI");
                     break;
                     
                 case "Primary Care Physician":
                     docFee = 700;
+                    timeAndDay.removeAllItems();
+                    timeAndDay.addItem("Available Hours and Days:");
+                    timeAndDay.addItem("10-11 AM MON");
+                    timeAndDay.addItem("11-12 PM MON");
+                    timeAndDay.addItem("1-2 PM MON");
+                    timeAndDay.addItem("2-3 PM MON");
+                    timeAndDay.addItem("10-11 AM TUE");
+                    timeAndDay.addItem("11-12 PM TUE");
+                    timeAndDay.addItem("1-2 PM TUE");
+                    timeAndDay.addItem("2-3 PM TUE");
+                    timeAndDay.addItem("10-11 AM THU");
+                    timeAndDay.addItem("11-12 PM THU");
+                    timeAndDay.addItem("1-2 PM THU");
+                    timeAndDay.addItem("2-3 PM THU");
                     break;
                 
                 case "Internal Medicine":
                     docFee = 300;
+                    timeAndDay.removeAllItems();
+                    timeAndDay.addItem("Available Hours and Days:");
+                    timeAndDay.addItem("8-9 AM MON");
+                    timeAndDay.addItem("10-11 AM MON");
+                    timeAndDay.addItem("11-12 PM MON");
+                    timeAndDay.addItem("2-3 PM MON");
+                    timeAndDay.addItem("8-9 AM WED");
+                    timeAndDay.addItem("10-11 AM WED");
+                    timeAndDay.addItem("11-12 PM WED");
+                    timeAndDay.addItem("2-3 PM WED");
+                    timeAndDay.addItem("8-9 AM THU");
+                    timeAndDay.addItem("10-11 AM THU");
+                    timeAndDay.addItem("11-12 PM THU");
+                    timeAndDay.addItem("2-3 PM THU");
                     break;
             }
             doctorsFee.setText("Doctors Fee: " + docFee + " Php");
@@ -811,6 +881,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
     private javax.swing.JLabel purposeEmpty;
     private javax.swing.JLabel schedEmpty;
     private javax.swing.JTextField schedule;
+    private javax.swing.JComboBox<String> timeAndDay;
     private javax.swing.JLabel typeEmpty;
     private javax.swing.JTextField weight;
     private javax.swing.JLabel weightEmpty;
