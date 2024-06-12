@@ -7,5 +7,5 @@ public class main {
         PageOneFrame.setVisible(true);
         PageOneFrame.setLocationRelativeTo(null);
     }
-    
+     
 }

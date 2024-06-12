@@ -24,6 +24,7 @@ public class PatientsLog extends javax.swing.JFrame {
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setFont(new Font("Century Gothic", Font.BOLD, 18));
         searchField.setText("Search Surname");
+        refreshbutton4.doClick();
     }
 
     @SuppressWarnings("unchecked")
@@ -189,7 +190,6 @@ public class PatientsLog extends javax.swing.JFrame {
         PatientsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         PatientsTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         PatientsTable.setShowGrid(true);
-        PatientsTable.setShowVerticalLines(false);
         PatientsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(PatientsTable);
 
@@ -209,7 +209,11 @@ public class PatientsLog extends javax.swing.JFrame {
     private void selectbutton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectbutton4ActionPerformed
         int row = PatientsTable.getSelectedRow();
         if (row >= 0) {
-            //CODE PARA MAACCESS ANG PATIENT RECORDS
+            String tableName = PatientsTable.getValueAt(row, 0).toString();
+            PatientRecord record = new PatientRecord(tableName);
+            record.setVisible(true);
+            record.setLocationRelativeTo(null);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Please select a patient from the table.", "No Patient Selected", JOptionPane.WARNING_MESSAGE);
         }
@@ -218,26 +222,33 @@ public class PatientsLog extends javax.swing.JFrame {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         String search = searchField.getText();
         PreparedStatement stat;
-        ResultSet res;
-        String lastName, firstName, lastVisit;
+        ResultSet res, nameResult;
+        String sql, tableName, patientName = "", firstName, lastName;
 
         try {
-            String sql = "";
-            stat = con.prepareStatement(sql);
-            stat.setString(1, "%" + search + "%");
-
-            res = stat.executeQuery();
+            DatabaseMetaData Data = con.getMetaData();
+            res = Data.getTables("pasystem", null, "%", new String[]{"TABLE"});
 
             DefaultTableModel resModel = new DefaultTableModel();
-            resModel.addColumn("Last Name");
-            resModel.addColumn("First Name");
-            resModel.addColumn("Last Visit");
+            resModel.addColumn("Patient ID");
+            resModel.addColumn("Patient Name");
 
             while (res.next()) {
-                lastName = res.getString("Last Name");
-                firstName = res.getString("First Name");
-                lastVisit = res.getString("Schedule");
-                resModel.addRow(new Object[]{lastName, firstName, lastVisit});
+                tableName = res.getString("TABLE_NAME");
+
+                if (tableName.equalsIgnoreCase("patient")) {
+                    continue;
+                }
+                sql = "Select * FROM " + tableName + " WHERE `Last Name` LIKE ?";
+                stat = con.prepareStatement(sql);
+                stat.setString(1, "%" + search + "%");
+                nameResult = stat.executeQuery();
+                while (nameResult.next()) {
+                    firstName = nameResult.getString("First Name");
+                    lastName = nameResult.getString("Last Name");
+                    patientName = lastName + ", " + firstName;
+                    resModel.addRow(new Object[]{tableName, patientName});
+                }
             }
 
             PatientsTable.setModel(resModel);
@@ -260,24 +271,43 @@ public class PatientsLog extends javax.swing.JFrame {
             resp = JOptionPane.showConfirmDialog(null, "Deleting this patient would delete all of their records. Continue?", "Deleting a patient", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (resp == 0) {
                 try {
-                    String lastName = PatientsTable.getValueAt(row, 0).toString();
-                    String firstName = PatientsTable.getValueAt(row, 1).toString();
-                    String lastVisit = PatientsTable.getValueAt(row, 2).toString();
-                    String sql = "DELETE FROM pasystem.patient WHERE `Last Name` = ? AND `First Name` = ? AND `Schedule` = ?";
-
-                    //Pinalitan yung mga question mark sa String sql
-                    try (PreparedStatement stat = con.prepareStatement(sql)) {
-                        stat.setString(1, lastName);
-                        stat.setString(2, firstName);
-                        stat.setString(3, lastVisit);
-                        stat.executeUpdate();
+                    String tableName = PatientsTable.getValueAt(row, 0).toString();
+                    String info = "SELECT * FROM pasystem." + tableName;
+                    String delAp = "DELETE FROM pasystem.patient WHERE `First Name` = ? AND `Last Name` = ? AND `Birthday` = ? AND `Phone Number` = ? AND `Gender` = ?";
+                    String sql = "DROP TABLE IF EXISTS " + tableName;
+                    
+                    String fName = null, lName = null, bDay = null, phone = null, gender = null;
+                    Statement stat = con.createStatement();
+                    ResultSet res = stat.executeQuery(info);
+                    
+                    if (res.next()){
+                        fName = res.getString("First Name");
+                        lName = res.getString("Last Name");
+                        bDay = res.getString("Birthday");
+                        phone = res.getString("Phone Number");
+                        gender = res.getString("Gender");
                     }
+
+                    PreparedStatement del = con.prepareStatement(delAp);                   
+                    del.setString(1, fName);
+                    del.setString(2, lName);
+                    del.setString(3, bDay);
+                    del.setString(4, phone);
+                    del.setString(5, gender);
+                    del.executeUpdate();
+
+                    Statement drop = con.createStatement();
+                    stat.executeUpdate(sql);
+                    
+                    drop.close();
+                    del.close();
+                    stat.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 refreshbutton4.doClick();
             }
-        //If walang naselect na row ang user
+            //If walang naselect na row ang user
         } else {
             JOptionPane.showMessageDialog(this, "No patient selected to delete", "No Patient Selected", JOptionPane.WARNING_MESSAGE);
         }
@@ -285,24 +315,35 @@ public class PatientsLog extends javax.swing.JFrame {
 
     private void refreshbutton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbutton4ActionPerformed
         DefaultTableModel tbMod = new DefaultTableModel();
-        String sql = "";
+        String query, patientName = "", tableName, firstName, lastName;
         try {
-            Statement stat = con.createStatement();
-            ResultSet res = stat.executeQuery(sql);
+            DatabaseMetaData Data = con.getMetaData();
+            ResultSet tbResultSet = Data.getTables("pasystem", null, "%", new String[]{"TABLE"});
 
             tbMod.addColumn("Patient ID");
             tbMod.addColumn("Patient Name");
 
-            while (res.next()) {
-                String lName = res.getString("");
-                String fName = res.getString("");
-                
-                tbMod.addRow(new Object[]{lName, fName});
-            } //DON'T DELETE PARA MAY REFERENCE
-//            
+            while (tbResultSet.next()) {
+                tableName = tbResultSet.getString("TABLE_NAME");
+
+                if (tableName.equalsIgnoreCase("patient")) {
+                    continue;
+                }
+
+                query = "Select * FROM " + tableName + " LIMIT 1";
+                ResultSet nameResult = con.createStatement().executeQuery(query);
+                while (nameResult.next()) {
+                    firstName = nameResult.getString("First Name");
+                    lastName = nameResult.getString("Last Name");
+                    patientName = lastName + ", " + firstName;
+                }
+
+                tbMod.addRow(new Object[]{tableName, patientName});
+            }
+
             //Setting the model of the table to the created table
             PatientsTable.setModel(tbMod);
-            
+
             //Center the cells of each column
             center.setHorizontalAlignment(SwingConstants.CENTER);
 

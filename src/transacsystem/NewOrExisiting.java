@@ -168,7 +168,7 @@ public class NewOrExisiting extends javax.swing.JFrame {
     }//GEN-LAST:event_newbutton3ActionPerformed
 
     private void oldbutton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldbutton3ActionPerformed
-        AppointmentLog PatientLogFrame = new AppointmentLog();
+        PatientsLog PatientLogFrame = new PatientsLog();
         PatientLogFrame.setVisible(true);
         PatientLogFrame.setLocationRelativeTo(null);
         this.dashboardFrame.dispose();

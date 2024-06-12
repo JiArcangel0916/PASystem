@@ -5,47 +5,17 @@ import java.sql.*;
 public class Summary extends javax.swing.JFrame {
 
     private Connection con;
-    private String lastName, firstName, lastVisit, birthday;
-    
+    private String lastName, firstName, lastVisit, birthday, purp, type, sched;
+
     public Summary(String lastName, String firstName, String lastVisit) {
-                super("PAS | Patient Summary");
+        super("PAS | Patient Summary");
         createConnection();
         initComponents();
         this.lastName = lastName;
         this.firstName = firstName;
         this.lastVisit = lastVisit;
-        String sql = "SELECT * FROM pasystem.patient WHERE `Last Name` LIKE ? AND `First name` LIKE ? AND `Schedule` LIKE ?";
-        try {
-            PreparedStatement stat = con.prepareStatement(sql);
-            stat.setString(1, "%" + lastName + "%");
-            stat.setString(2, "%" + firstName + "%");
-            stat.setString(3, "%" + lastVisit + "%");
-
-            ResultSet res = stat.executeQuery();
-            if (res.next()) {
-                birthday = res.getString("Birthday");
-                int age = res.getInt("Age");
-                String height = res.getString("Height");
-                String weight = res.getString("Weight");
-                String gender = res.getString("Gender");
-                String contact = res.getString("Phone Number");
-                String purpose = res.getString("Appointment Purpose");
-                String typeDoc = res.getString("Type of Doctor");
-
-                nameField.setText(firstName + " " + lastName);
-                ageField.setText(String.valueOf(age));
-                birthdayField.setText(birthday);
-                heightField.setText(height);
-                weightField.setText(weight);
-                genderField.setText(gender);
-                contactField.setText(contact);
-                purposeText.setText(purpose);
-                typeofdocText.setText(typeDoc);
-                dateAppointText.setText(lastVisit);
-            }
-        } catch (SQLException e) {
-        }
-    }
+        fillDetails();
+    } 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -450,6 +420,40 @@ public class Summary extends javax.swing.JFrame {
         newBook.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_bookButtonActionPerformed
+
+    private void fillDetails() {
+        String sql = "SELECT * FROM pasystem.patient WHERE `Last Name` LIKE ? AND `First name` LIKE ? AND `Schedule` LIKE ?";
+        try {
+            PreparedStatement stat = con.prepareStatement(sql);
+            stat.setString(1, "%" + lastName + "%");
+            stat.setString(2, "%" + firstName + "%");
+            stat.setString(3, "%" + lastVisit + "%");
+
+            ResultSet res = stat.executeQuery();
+            if (res.next()) {
+                birthday = res.getString("Birthday");
+                int age = res.getInt("Age");
+                String height = res.getString("Height");
+                String weight = res.getString("Weight");
+                String gender = res.getString("Gender");
+                String contact = res.getString("Phone Number");
+                String purpose = res.getString("Appointment Purpose");
+                String typeDoc = res.getString("Type of Doctor");
+
+                nameField.setText(firstName + " " + lastName);
+                ageField.setText(String.valueOf(age));
+                birthdayField.setText(birthday);
+                heightField.setText(height);
+                weightField.setText(weight);
+                genderField.setText(gender);
+                contactField.setText(contact);
+                purposeText.setText(purpose);
+                typeofdocText.setText(typeDoc);
+                dateAppointText.setText(lastVisit);
+            }
+        } catch (SQLException e) {
+        }
+    }
 
     /**
      * @param args the command line arguments

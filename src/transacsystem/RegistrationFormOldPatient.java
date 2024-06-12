@@ -108,16 +108,19 @@ public class RegistrationFormOldPatient extends javax.swing.JFrame {
         firstNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
         firstNameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         firstNameField.setDoubleBuffered(true);
+        firstNameField.setFocusable(false);
 
         lastNameField.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lastNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
         lastNameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        lastNameField.setFocusable(false);
         lastNameField.setMinimumSize(new java.awt.Dimension(64, 16));
 
         birthDay.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         birthDay.setText("MM/DD/YY");
         birthDay.setToolTipText("");
         birthDay.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
+        birthDay.setFocusable(false);
         birthDay.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 birthDayFocusGained(evt);

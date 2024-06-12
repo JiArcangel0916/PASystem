@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AppointmentSummaryNewPatient extends javax.swing.JFrame {
 
@@ -446,28 +447,67 @@ public class AppointmentSummaryNewPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void contButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contButtonActionPerformed
-        AppointmentBookedDialog dialog = new AppointmentBookedDialog(this, RegForm);
-        dialog.setVisible(true);
-        dialog.setLocationRelativeTo(null);
-        try {
-            String sql = "INSERT INTO pasystem.patient (`First Name`, `Last Name`, `Age`, `Birthday`, `Height`, `Weight`, `Phone Number`, `Gender`, `Appointment Purpose`, `Type of Doctor`, `Schedule`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stat = con.prepareStatement(sql);
-            stat.setString(1, firstName);
-            stat.setString(2, lastName);
-            stat.setInt(3, age);
-            stat.setString(4, birthday);
-            stat.setString(5, hei);
-            stat.setString(6, wei);
-            stat.setString(7, phone);
-            stat.setString(8, gen);
-            stat.setString(9, purpose);
-            stat.setString(10, type);
-            stat.setString(11, sched + " " + timeDay);
-            stat.execute();
-            
-            stat.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(AppointmentSummaryNewPatient.class.getName()).log(Level.SEVERE, null, ex);
+        String patientId = JOptionPane.showInputDialog(this, "Enter new patient's Patiend ID: ", "Patient ID", JOptionPane.PLAIN_MESSAGE);
+
+        if (patientId == null || patientId.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid Patient ID.", "Invalid Patient ID", JOptionPane.ERROR_MESSAGE);
+        } else {
+            AppointmentBookedDialog dialog = new AppointmentBookedDialog(this, RegForm);
+            dialog.setVisible(true);
+            dialog.setLocationRelativeTo(null);
+            try {
+                String sql = "INSERT INTO pasystem.patient (`First Name`, `Last Name`, `Age`, `Birthday`, `Height`, `Weight`, `Phone Number`, `Gender`, `Appointment Purpose`, `Type of Doctor`, `Schedule`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stat = con.prepareStatement(sql);
+                stat.setString(1, firstName);
+                stat.setString(2, lastName);
+                stat.setInt(3, age);
+                stat.setString(4, birthday);
+                stat.setString(5, hei);
+                stat.setString(6, wei);
+                stat.setString(7, phone);
+                stat.setString(8, gen);
+                stat.setString(9, purpose);
+                stat.setString(10, type);
+                stat.setString(11, sched + " " + timeDay);
+                stat.execute();
+
+                String tableName = "Patient_" + patientId;
+                String createTable = "CREATE TABLE " + tableName + " ("
+                        + "`First Name` VARCHAR(50), "
+                        + "`Last Name` VARCHAR (50), "
+                        + "Age INT, "
+                        + "Birthday VARCHAR(10), "
+                        + "Height VARCHAR(5), "
+                        + "Weight VARCHAR(5), "
+                        + "`Phone Number` VARCHAR(11), "
+                        + "Gender VARCHAR(20), "
+                        + "`Appointment Purpose` VARCHAR(20), "
+                        + "`Type of Doctor` VARCHAR(50), "
+                        + "Schedule VARCHAR(50) "
+                        + ");";
+                PreparedStatement create = con.prepareStatement(createTable);
+                create.executeUpdate();
+
+                String insertInfo = "INSERT INTO pasystem." + tableName + " (`First Name`, `Last Name`, `Age`, `Birthday`, `Height`, `Weight`, `Phone Number`, `Gender`, `Appointment Purpose`, `Type of Doctor`, `Schedule`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insert = con.prepareStatement(insertInfo);
+                insert.setString(1, firstName);
+                insert.setString(2, lastName);
+                insert.setInt(3, age);
+                insert.setString(4, birthday);
+                insert.setString(5, hei);
+                insert.setString(6, wei);
+                insert.setString(7, phone);
+                insert.setString(8, gen);
+                insert.setString(9, purpose);
+                insert.setString(10, type);
+                insert.setString(11, sched + " " + timeDay);
+                insert.execute();
+
+                create.close();
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AppointmentSummaryNewPatient.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_contButtonActionPerformed
 

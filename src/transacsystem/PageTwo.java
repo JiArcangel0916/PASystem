@@ -58,9 +58,8 @@ public class PageTwo extends javax.swing.JFrame {
         bookappointmentpanel2Layout.setHorizontalGroup(
             bookappointmentpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookappointmentpanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bookappointmentbutton2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bookappointmentbutton2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         bookappointmentpanel2Layout.setVerticalGroup(
             bookappointmentpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +163,7 @@ public class PageTwo extends javax.swing.JFrame {
         patientLogButton.setBorderPainted(false);
         patientLogButton.setFocusPainted(false);
         patientLogButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        patientLogButton.setIconTextGap(27);
+        patientLogButton.setIconTextGap(20);
         patientLogButton.setMaximumSize(new java.awt.Dimension(415, 59));
         patientLogButton.setMinimumSize(new java.awt.Dimension(415, 59));
         patientLogButton.setOpaque(true);
@@ -179,9 +178,7 @@ public class PageTwo extends javax.swing.JFrame {
         patientlogpanel.setLayout(patientlogpanelLayout);
         patientlogpanelLayout.setHorizontalGroup(
             patientlogpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, patientlogpanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(patientLogButton, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
+            .addComponent(patientLogButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
         );
         patientlogpanelLayout.setVerticalGroup(
             patientlogpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
