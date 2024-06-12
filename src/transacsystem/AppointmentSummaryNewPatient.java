@@ -13,7 +13,7 @@ public class AppointmentSummaryNewPatient extends javax.swing.JFrame {
     private Connection con;
 
     public AppointmentSummaryNewPatient(JFrame RegForm, String firstName, String lastName, int age, String birthday, String gen, String phone, String hei, String wei, String purpose, String type, String sched, String timeDay) {
-        super("PAS | Appointment Summary");
+        super("PAS | Appointment Summary New Patient");
         initComponents();
         createConnection();
         this.RegForm = RegForm;
