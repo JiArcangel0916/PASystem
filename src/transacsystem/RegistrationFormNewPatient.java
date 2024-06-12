@@ -1,12 +1,15 @@
 package transacsystem;
 
 import javax.swing.*;
+import java.sql.*;
+import java.text.*;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistrationFormNewPatient extends javax.swing.JFrame {
 
     private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched, timeDay;
     private int age;
-    private String format = "MM/DD/YY";
+    private final String format = "MM/DD/YY";
     
     public RegistrationFormNewPatient(String lastName, String firstName) {
         super("PAS | Registration Form");
@@ -16,8 +19,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         lastNameField.setText(lastName);
         doctor.setEnabled(false);
         timeAndDay.setEnabled(false);
-        schedule.setText(format);
-        birthDay.setText(format);
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +30,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
         lastNameField = new javax.swing.JTextField();
-        birthDay = new javax.swing.JTextField();
         height = new javax.swing.JTextField();
         weight = new javax.swing.JTextField();
         ageField = new javax.swing.JTextField();
@@ -41,7 +41,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         ConBut1 = new javax.swing.JButton();
         CantBut1 = new javax.swing.JButton();
         gender = new javax.swing.JComboBox<>();
-        schedule = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -70,6 +69,8 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         typeEmpty = new javax.swing.JLabel();
         schedEmpty = new javax.swing.JLabel();
         timeAndDay = new javax.swing.JComboBox<>();
+        birthDay = new com.toedter.calendar.JDateChooser();
+        schedule = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 900));
@@ -114,16 +115,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         lastNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
         lastNameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         lastNameField.setMinimumSize(new java.awt.Dimension(64, 16));
-
-        birthDay.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        birthDay.setText("MM/DD/YY");
-        birthDay.setToolTipText("");
-        birthDay.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
-        birthDay.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                birthDayFocusGained(evt);
-            }
-        });
 
         height.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         height.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
@@ -196,16 +187,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         gender.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Not Selected Yet", "Male", "Female", "Rather not say" }));
         gender.setBorder(new javax.swing.border.MatteBorder(null));
-
-        schedule.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        schedule.setText("MM/DD/YY");
-        schedule.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
-        schedule.setOpaque(true);
-        schedule.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                scheduleFocusGained(evt);
-            }
-        });
 
         jPanel3.setBackground(new java.awt.Color(2, 113, 121));
         jPanel3.setMinimumSize(new java.awt.Dimension(831, 4));
@@ -393,6 +374,25 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         timeAndDay.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         timeAndDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Time" }));
         timeAndDay.setBorder(new javax.swing.border.MatteBorder(null));
+        timeAndDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeAndDayActionPerformed(evt);
+            }
+        });
+
+        birthDay.setDateFormatString("dd-MM-yyyy");
+        birthDay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                birthDayPropertyChange(evt);
+            }
+        });
+
+        schedule.setDateFormatString("dd-MM-yyyy");
+        schedule.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                schedulePropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -410,12 +410,12 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
                     .addComponent(LNameEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(106, 106, 106)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(birthDay)
                     .addComponent(gender, 0, 247, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(bDayEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(genderEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(genderEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(birthDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(105, 105, 105)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -475,17 +475,16 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
                                         .addComponent(purposeEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(65, 65, 65)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(label18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(label18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(27, 27, 27)
-                                                .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(27, 27, 27)
-                                                .addComponent(schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(timeAndDay, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(schedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(timeAndDay, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(schedEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -590,11 +589,11 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
                         .addComponent(typeEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(doctorsFee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(schedule, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(schedEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeAndDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timeAndDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(schedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CantBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -635,15 +634,17 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         firstName = firstNameField.getText();
         lastName = lastNameField.getText();
         ageTemp = ageField.getText();
-        birthday = birthDay.getText();
         gen = gender.getSelectedItem().toString();
         phone = contactNo.getText();
         hei = height.getText();
         wei = weight.getText();
         purpose = appPurpose.getSelectedItem().toString();
         type = doctor.getSelectedItem().toString();
-        sched = schedule.getText();
         timeDay = timeAndDay.getSelectedItem().toString();
+        
+        java.util.Date selectedBirthday = birthDay.getDate();
+        java.util.Date selectedSchedule = schedule.getDate();
+        
         
         if (firstName.equals("")) FNameEmpty.setText(emInfo);
         else {FN = true; FNameEmpty.setText("");}
@@ -653,9 +654,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         
         if (ageTemp.equals("")) ageEmpty.setText(emInfo);
         else {AGE = true; ageEmpty.setText("");}
-        
-        if (birthday.equals(format)) bDayEmpty.setText(emInfo);
-        else {BD = true; bDayEmpty.setText("");}
         
         if (gen.equals("Not Selected Yet")) genderEmpty.setText(emGen);
         else {GEN = true; genderEmpty.setText("");}
@@ -671,9 +669,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         
         if (!type.equals("Choose Type of Doctor")) TYPE = true;
         
-        if (sched.equals("") || sched.equals(format)) schedEmpty.setText(emSched);
-        else {SCH = true; schedEmpty.setText("");}
-        
         if (phone.equals("")) phoneEmpty.setText(emPhone);
         else {PH = true; phoneEmpty.setText("");}
         
@@ -682,7 +677,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         
         age = Integer.parseInt(ageTemp);
         
-        if ((phone.length() == 11) && FN && LN && AGE && BD && GEN && HEI && WEI && PURP && TYPE && SCH && TD) {
+        if ((phone.length() == 11) && FN && LN && AGE && BD && GEN && HEI && WEI && PURP && TYPE && SCH && TD) { 
             AppointmentSummary summary = new AppointmentSummary(this, firstName, lastName, age, birthday, gen, phone, hei,wei, purpose, type, sched, timeDay);
             summary.setVisible(true);
             summary.setLocationRelativeTo(null);
@@ -776,10 +771,6 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_doctorActionPerformed
 
-    private void scheduleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scheduleFocusGained
-        schedule.setText("");
-    }//GEN-LAST:event_scheduleFocusGained
-
     private void appPurposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appPurposeActionPerformed
         String purp = (String) appPurpose.getSelectedItem();
         if (!purp.equals("Choose Purpose of Appointment")){
@@ -834,9 +825,25 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_appPurposeActionPerformed
 
-    private void birthDayFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_birthDayFocusGained
-        birthDay.setText("");
-    }//GEN-LAST:event_birthDayFocusGained
+    private void timeAndDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeAndDayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeAndDayActionPerformed
+
+    private void birthDayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_birthDayPropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date selectedDate = (Date) evt.getNewValue();
+            birthday = dateFormat.format(selectedDate);
+        }
+    }//GEN-LAST:event_birthDayPropertyChange
+
+    private void schedulePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_schedulePropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date selectedDate = (Date) evt.getNewValue();
+            sched = dateFormat.format(selectedDate);
+        }
+    }//GEN-LAST:event_schedulePropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CantBut1;
@@ -847,7 +854,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
     private javax.swing.JTextField ageField;
     private javax.swing.JComboBox<String> appPurpose;
     private javax.swing.JLabel bDayEmpty;
-    private javax.swing.JTextField birthDay;
+    private com.toedter.calendar.JDateChooser birthDay;
     private javax.swing.JTextField contactNo;
     private javax.swing.JComboBox<String> doctor;
     private javax.swing.JLabel doctorsFee;
@@ -880,7 +887,7 @@ public class RegistrationFormNewPatient extends javax.swing.JFrame {
     private javax.swing.JLabel phoneEmpty;
     private javax.swing.JLabel purposeEmpty;
     private javax.swing.JLabel schedEmpty;
-    private javax.swing.JTextField schedule;
+    private com.toedter.calendar.JDateChooser schedule;
     private javax.swing.JComboBox<String> timeAndDay;
     private javax.swing.JLabel typeEmpty;
     private javax.swing.JTextField weight;
