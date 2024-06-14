@@ -5,7 +5,7 @@ import javax.swing.*;
 public class RegistrationFormOldPatient extends javax.swing.JFrame {
 
     private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched, timeDay;
-    private int age;
+    private int age, docFee;
     private String format = "MM/DD/YY";
     
     public RegistrationFormOldPatient(String lastName, String firstName, String birthday) {
@@ -685,7 +685,7 @@ public class RegistrationFormOldPatient extends javax.swing.JFrame {
         age = Integer.parseInt(ageTemp);
         
         if ((phone.length() == 11) && FN && LN && AGE && BD && GEN && HEI && WEI && PURP && TYPE && SCH && TD) {
-            AppointmentSummaryOldPatient summary = new AppointmentSummaryOldPatient(this, firstName, lastName, age, birthday, gen, phone, hei,wei, purpose, type, sched, timeDay);
+            AppointmentSummaryOldPatient summary = new AppointmentSummaryOldPatient(this, firstName, lastName, age, birthday, gen, phone, hei,wei, purpose, type, sched, timeDay, docFee);
             summary.setVisible(true);
             summary.setLocationRelativeTo(null);
         } else if (phone.length() != 11){
@@ -695,7 +695,7 @@ public class RegistrationFormOldPatient extends javax.swing.JFrame {
 
     private void doctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorActionPerformed
         String doc = (String) doctor.getSelectedItem();
-        int docFee = 0;
+        docFee = 0;
         if (doc != null && !doc.equals("Choose Type of Doctor")){
             timeAndDay.setEnabled(true);
             switch (doc){

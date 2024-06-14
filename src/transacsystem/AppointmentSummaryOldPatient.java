@@ -9,10 +9,10 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
 
     private final JFrame RegForm;
     private String firstName, lastName, birthday, gen, phone, hei, wei, purpose, type, sched, timeDay;
-    private int age;
+    private int age, docFee;
     private Connection con;
 
-    public AppointmentSummaryOldPatient(JFrame RegForm, String firstName, String lastName, int age, String birthday, String gen, String phone, String hei, String wei, String purpose, String type, String sched, String timeDay) {
+    public AppointmentSummaryOldPatient(JFrame RegForm, String firstName, String lastName, int age, String birthday, String gen, String phone, String hei, String wei, String purpose, String type, String sched, String timeDay, int docFee) {
         super("PAS | Appointment Summary Old Patient");
         initComponents();
         createConnection();
@@ -29,6 +29,8 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
         this.type = type;
         this.sched = sched;
         this.timeDay = timeDay;
+        this.docFee = docFee;
+        doctorFee.setText("Doctor's Fee: " + docFee);
         fillDetails();
     }
 
@@ -66,6 +68,7 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
         doctorsFee = new javax.swing.JLabel();
         ageField = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        doctorFee = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -300,11 +303,22 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel13.setText("Age");
 
+        doctorFee.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        doctorFee.setForeground(new java.awt.Color(2, 113, 121));
+        doctorFee.setToolTipText("");
+        doctorFee.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        doctorFee.setFocusable(false);
+        doctorFee.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        doctorFee.setMaximumSize(new java.awt.Dimension(121, 29));
+        doctorFee.setMinimumSize(new java.awt.Dimension(121, 29));
+        doctorFee.setPreferredSize(new java.awt.Dimension(121, 29));
+        doctorFee.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1342, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -361,11 +375,14 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(doctorsFee, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(doctorFee, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(doctorsFee, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(typeField, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(contButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(155, 155, 155))
+                .addGap(157, 157, 157))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,8 +440,10 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(typeField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(doctorsFee, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(doctorsFee, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(doctorFee, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -526,6 +545,7 @@ public class AppointmentSummaryOldPatient extends javax.swing.JFrame {
     private javax.swing.JButton contButton;
     private javax.swing.JTextField contactField;
     private javax.swing.JTextField dateField;
+    private javax.swing.JLabel doctorFee;
     private javax.swing.JLabel doctorsFee;
     private javax.swing.JButton editButton;
     private javax.swing.JTextField genderField;

@@ -161,6 +161,7 @@ public class PageTwo extends javax.swing.JFrame {
         patientLogButton.setText("Patients Log");
         patientLogButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         patientLogButton.setBorderPainted(false);
+        patientLogButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         patientLogButton.setFocusPainted(false);
         patientLogButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         patientLogButton.setIconTextGap(20);
